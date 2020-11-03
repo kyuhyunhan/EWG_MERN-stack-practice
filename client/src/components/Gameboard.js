@@ -4,13 +4,13 @@ import Givenword from './Givenword';
 import Quizwords from './Quizwords'
 
 const jumboStyle = {
-    'text-align' : 'center'
+    textAlign : 'center'
 }
 
 class Gameboard extends React.Component {
     render() {
         return (
-            <Jumbotron style={jumboStyle}>
+            <Jumbotron style={jumboStyle} fluid>
                 <h1>Welcome to EWG : finding out synonyms!</h1>
                 <Container>
                     <div>
