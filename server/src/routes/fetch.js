@@ -2,8 +2,7 @@ const router = require('express').Router();
 const axios = require('axios').default;
 
 router.route('/').get(async function(req,res){
-    console.log('just connected to backend')
-    const url = 'https://rapidapi.p.rapidapi.com/words/?random=true'
+    const url = 'https://rapidapi.p.rapidapi.com/words/?random=true&lettersMin=3&lettersMax=10'
     const headers = {
         'content-type':'application/json',
         'x-rapidapi-key': process.env.WORDSAPI_KEY,
@@ -17,11 +16,52 @@ router.route('/').get(async function(req,res){
             url: url,
             headers: headers
         })
-        console.log('server!~')
-        console.log(response.data)
+        res.send(response.data.word)
+        console.log(response.data.word)
     } catch {
-        console.log('e')
+        console.log('error!')
     }
+})
+router.route('/isSynonym').get(async function(req,res) {
+    const url = 'https://rapidapi.p.rapidapi.com/words/' + req.params.word + '/synonyms'
+    const headers = {
+        'content-type':'application/json',
+        'x-rapidapi-key': process.env.WORDSAPI_KEY,
+        'x-rapidapi-host': 'wordsapiv1.p.rapidapi.com',
+        'accept':'application/json'
+    }
+    try {
+        const response = await axios.request({
+            method: "GET",
+            url: url,
+            headers: headers
+        })
+        res.send(response.data.word)
+    } catch {
+        console.log('error!')
+    }
+})
+router.route('/isAntonym').get(async function(req,res) {
+    const url = 'https://rapidapi.p.rapidapi.com/words/' + req.params.word + '/antonyms'
+    const headers = {
+        'content-type':'application/json',
+        'x-rapidapi-key': process.env.WORDSAPI_KEY,
+        'x-rapidapi-host': 'wordsapiv1.p.rapidapi.com',
+        'accept':'application/json'
+    }
+    try {
+        const response = await axios.request({
+            method: "GET",
+            url: url,
+            headers: headers
+        })
+        res.send(response.data.word)
+    } catch {
+        console.log('error!')
+    }
+})
+
+module.exports = router
     // var options = {
     //     method: 'GET',
     //     url: 'https://rapidapi.p.rapidapi.com/words/?random=true',
@@ -37,6 +77,3 @@ router.route('/').get(async function(req,res){
     // }).catch (function(error){
     //     console.error(error)
     // })
-})
-
-module.exports = router
