@@ -7,7 +7,7 @@ const app = express()
 const port = process.env.PORT || 3001;
 
 app.use(cors())
-app.use('/', fetchRouter)
+app.use('/api/', fetchRouter)
 
 app.listen(port, function() {
     console.log(`Listening on port ${port}`)

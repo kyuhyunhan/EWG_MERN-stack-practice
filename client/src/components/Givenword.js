@@ -1,7 +1,5 @@
 import React from 'react'
 import axios from 'axios'
-import Firstoption from './Firstoption';
-import Secondoption from './Secondoption';
 import Button from 'react-bootstrap/Button';
 
 class Givenword extends React.Component {
@@ -15,18 +13,18 @@ class Givenword extends React.Component {
         }
     }
     componentDidMount() {
-        axios.get('http://localhost:3001/')
+        axios.get('http://localhost:3001/api/random')
             .then((response) => {
                 this.setState({ word: response.data })
-                var random = Math.random()
-                if(random > 0.5){
-                    this.setState({FisSynonym: true})
-                    this.setState({SisSynonym: false})
-                } else {
-                    this.setState({FisSynonym: false})
-                    this.setState({SisSynonym: true})
-                }
-                //setState를 3번 호출하다보니까, 하위 Components들도 3번 호출이 되는 것 같음..
+                // var random = Math.random()
+                // if(random > 0.5){
+                //     this.setState({FisSynonym: true})
+                //     this.setState({SisSynonym: false})
+                // } else {
+                //     this.setState({FisSynonym: false})
+                //     this.setState({SisSynonym: true})
+                // }
+                console.log(this.state.word + '/ ' + this.state.FisSynonym + ', ' + this.state.SisSynonym)
             })
             .catch(function(error){
                 console.log(error)
@@ -38,8 +36,8 @@ class Givenword extends React.Component {
             <div>
                 <h1>{this.state.word}</h1>
                 <div>
-                    <Button><Firstoption word={this.state.word} isSynonym={this.state.FisSynonym}/></Button>
-                    <Button><Secondoption word={this.state.word} isSynonym={this.state.SisSynonym}/></Button>
+                    <Button>First Option</Button>
+                    <Button>Second Option</Button>
                 </div>
             </div>
         )
